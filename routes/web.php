@@ -33,7 +33,7 @@ Route::middleware(['guest'])->group(function(){
 
 Route::middleware(['auth'])->group(function(){
     Route::get('/admin', [AdminController::class, 'index'])->name('admin')->middleware('userAkses:admin');
-
+    Route::get('/cetak/struk/{id}/transaksi', [GenerateController::class, 'cetakStrukTransaksi'])->name('cetak.struk');
     // data barang
     Route::get('/admin/databarang', [BarangController::class, 'index'])->name('admin.databarang')->middleware('userAkses:admin');
     Route::get('/admin/edit/{id}/databarang', [BarangController::class, 'edit'])->name('admin.edit.databarang')->middleware('userAkses:admin');
@@ -57,8 +57,16 @@ Route::middleware(['auth'])->group(function(){
     Route::delete('/admin/delete/{id}/jenispembayaran', [JenisPembayaranController::class, 'delete'])->name('admin.delete.jenispembayaran')->middleware('userAkses:admin');
     // end data jenis pembayaran
 
-    // Transaksi
+    // Transaksi   
+
     Route::get('/admin/cetak/laporan/transaksi', [GenerateController::class, 'cetaklaporanTransaksi'])->name('admin.cetak.laporan')->middleware('userAkses:admin');
+    Route::get('/admin/create/transaksi', [TransaksiController::class, 'createAdmin'])->name('admin.create.histori')->middleware('userAkses:admin');
+    Route::get('/admin/tambah/transaksi/{id}', [TransaksiController::class, 'tambahAdmin'])->name('admin.tambah.transaksi')->middleware('userAkses:admin');
+    Route::post('/admin/create/transaksidetail', [TransaksiDetailContoller::class, 'createAdmin'])->name('admin.create.transaksi')->middleware('userAkses:admin');
+    Route::get('/admin/delete/transaksidetail', [TransaksiDetailContoller::class, 'deleteAdmin'])->name('admin.delete.transaksi')->middleware('userAkses:admin');
+    Route::get('/update/jenis/pembayaran/admin', [TransaksiController::class, 'updateAdmin'])->name('update.jenis.pembayaran.admin')->middleware('userAkses:admin');
+    Route::get('/nota/{id}/', [GenerateController::class, 'notaAdmin'])->name('admin.nota')->middleware('userAkses:admin');
+    Route::get('/update/transaksi/dibayarkan', [TransaksiController::class, 'dibayarkan'])->name('update.dibayarkan');
     // end Transaksi
 
 
@@ -73,10 +81,9 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/kasir/tambah/transaksi/{id}', [TransaksiController::class, 'tambah'])->name('kasir.tambah.transaksi')->middleware('userAkses:kasir');
     Route::post('/kasir/create/transaksidetail', [TransaksiDetailContoller::class, 'create'])->name('kasir.create.transaksi')->middleware('userAkses:kasir');
     Route::get('/kasir/delete/transaksidetail', [TransaksiDetailContoller::class, 'delete'])->name('kasir.delete.transaksi')->middleware('userAkses:kasir');
-     Route::get('/kasir/nota/{id}', [GenerateController::class, 'nota'])->name('kasir.nota')->middleware('userAkses:kasir');
+    Route::get('/kasir/{id}/nota', [GenerateController::class, 'nota'])->name('kasir.nota')->middleware('userAkses:kasir');
+    Route::get('/update/jenis/pembayaran', [TransaksiController::class, 'update'])->name('update.jenis.pembayaran')->middleware('userAkses:kasir');
     // end data barang
-
-
 
     Route::get('/owner', [AdminController::class, 'owner'])->name('owner')->middleware('userAkses:owner');
     // owner manage data
@@ -84,6 +91,8 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/owner/datakasir', [KasirController::class, 'indexOwner'])->name('owner.datakasir')->middleware('userAkses:owner');
     Route::get('/owner/detail/{id}/transaksi', [TransaksiDetailContoller::class, 'Ownerdetail'])->name('owner.detail.transaksi')->middleware('userAkses:owner');
     Route::get('/owner/lihat/histori', [TransaksiController::class, 'indexOwner'])->name('owner.lihat.histori')->middleware('userAkses:owner');
+    Route::get('/owner/cetak/laporan/transaksi', [GenerateController::class, 'OwnercetaklaporanTransaksi'])->name('owner.cetak.laporan')->middleware('userAkses:owner');
+
     // end manage
 
 

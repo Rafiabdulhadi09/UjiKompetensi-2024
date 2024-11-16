@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Transaksi Kasir</title>
+    <title>Transaksi Admin</title>
     <link rel="stylesheet" href="{{ url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css') }}">
     <!-- Custom fonts for this template-->
     <link href="{{url('vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css')}}">
@@ -24,7 +24,7 @@
 
     <!-- Page Wrapper -->
     <div id="wrapper">
-        @include('component.NavbarKasir')
+        @include('component.NavbarAdmin')
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
 
@@ -69,17 +69,15 @@
                 </nav>
                 <!-- End of Topbar -->
 
-               <!-- Begin Page Content -->
+                <!-- Begin Page Content -->
                 <div class="container-fluid m-2">
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">Tambah Transaksi Baru</h1>
                     </div>
-
                     <!-- Content Row -->
                     <div class="row p-2">
-                        <!-- Form untuk menambahkan produk -->
                         <div class="col-md-6">
                             <div class="card">
                                 <div class="card-body">
@@ -113,7 +111,7 @@
                                             </div>
                                         </div>
                                     </form>
-                                    <form action="{{route('kasir.create.transaksi')}}" method="post">
+                                    <form action="{{route('admin.create.transaksi')}}" method="post">
                                         @csrf
                                         <input type="hidden" value="{{ isset($p_detail) ? $p_detail->id : ''}}" name="barang_id">
                                         <input type="hidden" value="{{ isset($p_detail) ? $p_detail->harga : ''}}" name="harga_satuan">
@@ -123,7 +121,7 @@
                                                 <label for="">Nama Produk</label>
                                             </div>
                                             <div class="col-md-8">
-                                                <input type="text" disabled class="form-control" value="{{ isset($p_detail) ? $p_detail->nm_barang : '' }}" name="nm_barang">
+                                            <input type="text" disabled class="form-control" value="{{ isset($p_detail) ? $p_detail->nm_barang : '' }}" name="nm_barang">
                                             </div>
                                         </div>
                                         <div class="row mt-2">
@@ -131,7 +129,7 @@
                                                 <label for="">Harga Satuan</label>
                                             </div>
                                             <div class="col-md-8">
-                                                <input type="text" disabled class="form-control" value="{{ isset($p_detail) ? formatRupiah($p_detail->harga) : '' }} " name="harga_satuan">
+                                            <input type="text" disabled class="form-control" value="{{ isset($p_detail) ? formatRupiah($p_detail->harga) : '' }} "  name="harga_satuan">
                                             </div>
                                         </div>
                                         <div class="row mt-2">
@@ -139,7 +137,7 @@
                                                 <label for="">Stok</label>
                                             </div>
                                             <div class="col-md-8">
-                                                <input type="text" disabled class="form-control" value="{{ isset($p_detail) ? $p_detail->stok : '' }} " name="harga_satuan">
+                                            <input type="text" disabled class="form-control" value="{{ isset($p_detail) ? $p_detail->stok : '' }} "  name="harga_satuan">
                                             </div>
                                         </div>
                                         <div class="row mt-2">
@@ -147,52 +145,29 @@
                                                 <label for="">Quantity</label>
                                             </div>
                                             <div class="col-md-8">
-                                                <input type="number" class="form-control" name="qty" required>
+                                            <input type="number" class="form-control" name="qty" required>
                                             </div>
                                         </div>
-                                        <div class="row mt-3">
+                                    <div class="row mt-1">
+                                        <div class="col-md-4">
+
+                                        </div>
+                                    </div>
+                                    <div class="row mt-1">
+                                        <div class="col-md-4">
+
+                                        </div>
+                                        <div class="col-md-8">
                                             <button type="submit" class="form-control btn btn-success">Tambah Produk Kedalam List</button>
                                         </div>
                                     </form>
-                                </div>
-                            </div>
-                        </div>
-                                                <!-- Form untuk total belanja, pembayaran, dan uang kembalian -->
-                        <div class="col-md-6">
-                            <div class="card">
-                                <div class="card-body">
-                                    <form action="{{ route('update.dibayarkan') }}" method="get">
-                                        <input type="hidden" name="total_belanja" value="{{$total->total}}">
-                                        <input type="hidden" name="transaksi_id" value="{{ request()->segment(4) }}">
-                                        <div class="form-group">
-                                            <label for="">Total Belanja</label>
-                                            <input type="number" value="{{ isset($total->total) ? $total->total : '' }}" disabled name="total_belanja" class="form-control">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="">Total Uang Yang Di Terima</label>
-                                            <input type="number" value="{{ $dibayarkan }}" disabled name="total_belanja" class="form-control">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="">Di bayarkan</label>
-                                            <input type="number" name="dibayarkan" class="form-control">
-                                        </div>
-
-                                        <button type="submit" class="btn btn-primary btn-block">Hitung</button>
-                                    </form>
-                                    <div class="form-group">
-                                        <label for="">Uang Kembalian</label>
-                                        <input type="number" disabled name="kembalian" value="{{$kembalian}}" class="form-control">
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-
-                    <!-- Tabel daftar produk -->
-                    <div class="row p-2">
-                        <div class="col-md-12">
+                        <div class="col-md-6">
                             <div class="card">
-                                <div class="card-body">
+                                <div class="card-body"></div>
                                     <table class="table">
                                         <tr>
                                             <th>No</th>
@@ -208,13 +183,13 @@
                                             <th>{{$item->qty}}</th>
                                             <th>{{formatRupiah($item->subtotal)}}</th>
                                             <th>
-                                                <a href="/kasir/delete/transaksidetail?id={{$item->id}}&barang_id={{ $item->barang_id }}"><i class="fas fa-times"></i></a>
-                                            </th>
+                                                <a href="/admin/delete/transaksidetail?id={{$item->id}}&barang_id={{ $item->barang_id }}"><i class="fas fa-times"></i></a>
+                                            </tha>
                                         </tr>                                     
                                         @endforeach
                                     </table>
                                     <div class="m-3">
-                                        <form action="{{ route('update.jenis.pembayaran') }}" method="GET">
+                                        <form action="{{ route('update.jenis.pembayaran.admin' )}}" method="GET">
                                             <input type="hidden" name="transaksi_id" value="{{ request()->segment(4) }}">
                                             <label for=""><b>Masukan Jenis Pembayaran</b></label>
                                             <select name="pembayaran_id" class="form-control mb-3">
@@ -222,17 +197,46 @@
                                                     <option value="{{$item->id}}">{{ $item->nm_pembayaran }}</option>                  
                                                 @endforeach
                                             </select>
-                                            <button type="submit" class="btn btn-primary"><i class="fas fa-check"></i>Selesai</button>
+                                    </div>
+                                        <button type="submit" class="btn btn-primary"><i class="fas fa-check"></i>Selesai</button>
+                                     </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row p-2">
+                            <div class="col-md-6">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <form action="{{ route('update.dibayarkan') }}" method="get">
+                                            <input type="hidden" name="total_belanja" value="{{$total->total}}">
+                                            <input type="hidden" name="transaksi_id" value="{{ request()->segment(4) }}">
+                                            <div class="form-group">
+                                                <label for="">Total Belanja</label>
+                                                <input type="number" value="{{ isset($total->total) ? $total->total : '' }}" disabled name="total_belanja" class="form-control">
+                                            </div>
+                                             <div class="form-group">
+                                                <label for="">Di bayarkan</label>
+                                                <input disabled type="number" value="{{ $dibayarkan }}" name="dibayarkan" class="form-control">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="">Masukan Total Yang Dibayar</label>
+                                                <input type="number" name="dibayarkan" class="form-control">
+                                            </div>
+                                            <button type="submit" class="btn btn-primary btn-block">Hitung</button>
                                         </form>
+                                        <div class="form-group">
+                                            <label for="">Uang Kembalian</label>
+                                            <input type="number" disabled name="kembalian" value="{{$kembalian}}" class="form-control">
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                   
 
                 </div>
                 <!-- /.container-fluid -->
-
 
             </div>
             <!-- End of Main Content -->

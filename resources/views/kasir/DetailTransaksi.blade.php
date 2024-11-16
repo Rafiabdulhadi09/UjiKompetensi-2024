@@ -9,8 +9,8 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Dashboard</title>
-    <link href="{{url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css')}}" rel="stylesheet">
+    <title>Histori Detail Transaksi</title>
+    <link rel="stylesheet" href="{{ url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css') }}">
     <!-- Custom fonts for this template-->
     <link href="{{url('vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css')}}">
     <link href="{{url('https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i')}}" rel="stylesheet">
@@ -38,20 +38,6 @@
                     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
                         <i class="fa fa-bars"></i>
                     </button>
-
-                    <!-- Topbar Search -->
-                    <form
-                        class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-                        <div class="input-group">
-                            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
-                                aria-label="Search" aria-describedby="basic-addon2">
-                            <div class="input-group-append">
-                                <button class="btn btn-primary" type="button">
-                                    <i class="fas fa-search fa-sm"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </form>
 
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
@@ -90,11 +76,10 @@
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">Data Histori Detail Transaksi</h1>
                     </div>
+                    <a href="{{ route('cetak.struk', $detail->id) }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm m-3"><i
+                                class="fas fa-download fa-sm text-white-50"></i>Cetak Nota</a>
                     <!-- Content Row -->
                     <div class="row m-2">
-                        <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#myModal">
-                            Tambah Transaksi Baru
-                        </button>
                         <table class="table table-striped table-bordered">
                             <thead>
                               <tr>
@@ -107,8 +92,8 @@
                                 @foreach ($detail->transaksidetail as $item)
                                 <tr>
                                     <td>{{$loop->iteration}}</td>
-                                    <td>{{$item->nm_barang}}</td>
-                                    <td>{{$item->subtotal}}</td>
+                                    <td>{{$item->barang->nm_barang}}</td>
+                                    <td>{{formatRupiah($item->subtotal)}}</td>
                                 </tr>  
                                 @endforeach                         
                             </tbody>

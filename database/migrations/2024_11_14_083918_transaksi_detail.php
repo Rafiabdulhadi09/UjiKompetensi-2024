@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('transaksi_detail', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('transaksi_id')->references('id')->on('transaksi')->onDelete('cascade');
-            $table->string('nm_barang');
-            $table->string('qty');
-            $table->string('subtotal');
+            $table->unsignedBigInteger('barang_id')->references('id')->on('barang')->onDelete('cascade');
+            $table->integer('qty');
+            $table->integer('subtotal');
             $table->timestamps();
         });
     }

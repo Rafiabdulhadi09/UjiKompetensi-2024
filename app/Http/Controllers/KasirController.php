@@ -8,21 +8,32 @@ use Illuminate\Http\Request;
 
 class KasirController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $kasir = User::where('role','kasir')->get();
+           $query = User::query();
+
+        if ($request->has('search')) {
+            $search = $request->input('search');
+            $query->where('name', 'like', '%' . $search . '%')
+                ->orWhere('username', 'like', '%' . $search . '%')
+                ->orWhere('role', 'like', '%' . $search . '%');
+        }
+
+        $kasir = $query->where('role','kasir')
+                        ->paginate(10);
         return view('admin.DataPetugas', compact('kasir'));
     }
     public function create(Request $request)
     {
         $validated = $request->validate([
             'name' => 'required',
-            'username' => 'required',
+            'username' => 'required|unique:users,username',
             'password' => 'required',
         ],[
             'name.required' => 'Nama Wajib Diisi',
             'username.required' => 'Username Wajib Diisi',
             'password.required' => 'Password Wajib Diisi',
+            'username.unique' => 'Username Sudah Tersedia',
         ]);
 
         User::create([
@@ -72,9 +83,17 @@ class KasirController extends Controller
     }
 
     // Fungsi Pada Owner
-    public function indexOwner()
+    public function indexOwner(Request $request)
     {
-        $kasir = User::where('role','kasir')->get();
+           $query = User::query();
+
+        if ($request->has('search')) {
+            $search = $request->input('search');
+            $query->where('name', 'like', '%' . $search . '%')
+                ->orWhere('username', 'like', '%' . $search . '%');
+        }
+
+        $kasir = $query->where('role', 'kasir')->paginate(10);
         return view('owner.DataKasir', compact('kasir'));
     }
 

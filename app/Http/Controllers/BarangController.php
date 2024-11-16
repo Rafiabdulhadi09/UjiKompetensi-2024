@@ -7,9 +7,18 @@ use Illuminate\Http\Request;
 
 class BarangController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $barang = Barang::all();
+         $query = Barang::query();
+
+        if ($request->has('search')) {
+            $search = $request->input('search');
+            $query->where('nm_barang', 'like', '%' . $search . '%')
+                ->orWhere('harga', 'like', '%' . $search . '%')
+                ->orWhere('ukuran', 'like', '%' . $search . '%');
+        }
+
+        $barang = $query->paginate(10);
         return view('admin.DataBarang', compact('barang'));
     }
     public function create(Request $request)
@@ -83,16 +92,33 @@ class BarangController extends Controller
     }
 
     // Fungsi Kasir
-    public function indexKasir()
+    public function indexKasir(Request $request)
     {
-        $barang = Barang::all();
+         $query = Barang::query();
+
+        if ($request->has('search')) {
+            $search = $request->input('search');
+            $query->where('nm_barang', 'like', '%' . $search . '%')
+                ->orWhere('harga', 'like', '%' . $search . '%')
+                ->orWhere('ukuran', 'like', '%' . $search . '%');
+        }
+
+        $barang = $query->paginate(10);
         return view('kasir.DataBarang', compact('barang'));
     }
 
-    // Fungsi Kasir
-    public function indexOwner()
+    public function indexOwner(Request $request)
     {
-        $barang = Barang::all();
+        $query = Barang::query();
+
+        if ($request->has('search')) {
+            $search = $request->input('search');
+            $query->where('nm_barang', 'like', '%' . $search . '%')
+                ->orWhere('harga', 'like', '%' . $search . '%')
+                ->orWhere('ukuran', 'like', '%' . $search . '%');
+        }
+
+        $barang = $query->paginate(10);
         return view('owner.DataBarang', compact('barang'));
     }
 }

@@ -40,7 +40,7 @@
 <body id="page-top">
     <!-- Page Wrapper -->
     <div id="wrapper">
-        @include('component.NavbarKasir')
+        @include('component.NavbarAdmin')
 
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
@@ -68,7 +68,7 @@
                                     <a href="{{ route('cetak.struk', $id_transaksi->id) }}" class="btn btn-custom btn-custom-primary mb-2">
                                         <i class="fas fa-print"></i> Cetak Struk
                                     </a>
-                                    <a href="{{route('kasir')}}" class="btn btn-secondary btn-custom">
+                                    <a href="{{route('admin')}}" class="btn btn-secondary btn-custom">
                                         <i class="fas fa-home"></i> Kembali
                                     </a>
                                 </div>

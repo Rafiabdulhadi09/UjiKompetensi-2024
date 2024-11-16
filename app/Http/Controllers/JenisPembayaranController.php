@@ -7,9 +7,17 @@ use Illuminate\Http\Request;
 
 class JenisPembayaranController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $jenisPembayaran = JenisPembayaran::all();
+           $query = JenisPembayaran::query();
+
+        if ($request->has('search')) {
+            $search = $request->input('search');
+            $query->where('nm_pembayaran', 'like', '%' . $search . '%')
+                ->orWhere('nomor', 'like', '%' . $search . '%');
+        }
+
+        $jenisPembayaran = $query->paginate(10);
         return view('admin.DataJenisPembayaran', compact('jenisPembayaran'));
     }
     public function create(Request $request)

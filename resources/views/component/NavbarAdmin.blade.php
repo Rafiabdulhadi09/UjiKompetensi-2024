@@ -3,10 +3,10 @@
 
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-                <div class="sidebar-brand-icon rotate-n-15">
-                    <i class="fas fa-laugh-wink"></i>
+                <div class="sidebar-brand-icon">
+                   <i class="fa-solid fa-user-tie"></i>
                 </div>
-                <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
+                <div class="sidebar-brand-text mx-3">Halaman Admin <sup>*</sup></div>
             </a>
 
             <!-- Divider -->
@@ -48,8 +48,8 @@
 
              <!-- Nav Item - transaksi -->
              <li class="nav-item active">
-                <a class="nav-link" href="{{route('admin')}}">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                <a class="nav-link" href="{{route('admin.create.histori')}}">
+                   <i class="fa-solid fa-cart-shopping"></i>
                     <span>Tambah Transaksi</span></a>
             </li>
 

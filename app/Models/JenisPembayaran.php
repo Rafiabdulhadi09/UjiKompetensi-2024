@@ -13,5 +13,8 @@ class JenisPembayaran extends Model
         'nm_pembayaran',
         'nomor',
     ];
-
+    public function transaksi()
+    {
+        return $this->belongsTo(Transaksi::class);
+    }
 }

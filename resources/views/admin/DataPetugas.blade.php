@@ -9,8 +9,8 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Dashboard</title>
-    <link href="{{url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css')}}" rel="stylesheet">
+    <title>Data Kasir</title>
+    <link rel="stylesheet" href="{{ url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css') }}">
     <!-- Custom fonts for this template-->
     <link href="{{url('vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css')}}">
     <link href="{{url('https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i')}}" rel="stylesheet">
@@ -40,13 +40,12 @@
                     </button>
 
                     <!-- Topbar Search -->
-                    <form
-                        class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                    <form action="" method="GET" class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                         <div class="input-group">
-                            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
+                            <input type="text" name="search" class="form-control bg-light border-0 small" placeholder="Search for..."
                                 aria-label="Search" aria-describedby="basic-addon2">
                             <div class="input-group-append">
-                                <button class="btn btn-primary" type="button">
+                                <button class="btn btn-primary" type="submit">
                                     <i class="fas fa-search fa-sm"></i>
                                 </button>
                             </div>
@@ -88,7 +87,7 @@
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Data Produk</h1>
+                        <h1 class="h3 mb-0 text-gray-800">Data Kasir</h1>
                     </div>
                     <div class="d-grid gap-2">
                         @if ($errors->any())
@@ -122,7 +121,7 @@
                               </tr>
                             </thead>
                             <tbody>
-                            @foreach ($kasir as $item)
+                            @foreach ($kasir as $index => $item)
                                 <tr>
                                     <td>1</td>
                                     <td>{{$item->name}}</td>
@@ -134,7 +133,7 @@
                                             <form action="{{ route('admin.delete.kasir', $item->id) }}" method="POST">
                                                 @csrf
                                                 @method('DELETE') 
-                                                <button type="submit" class="btn btn-danger">Hapus</button>
+                                                <button type="submit" onclick="confirmDelete(event)" class="btn btn-danger">Hapus</button>
                                             </form>
                                         </div>
                                     </td>
@@ -143,7 +142,7 @@
                             </tbody>
                           </table>
                     </div>
-
+                    {{ $kasir->links('pagination::bootstrap-4') }}
                 </div>
                 <!-- /.container-fluid -->
 
@@ -187,7 +186,7 @@
       <div class="modal-content">
         <!-- Header Modal -->
         <div class="modal-header">
-          <h5 class="modal-title" id="myModalLabel">Tambah Data Barang</h5>
+          <h5 class="modal-title" id="myModalLabel">Tambah Data Kasir</h5>
         </div>
         <!-- Body Modal -->
        <form action="{{route('admin.create.kasir')}}" method="POST">
@@ -209,6 +208,18 @@
       </div>
     </div>
   </div>
+
+ <script>
+    function confirmDelete(event) {
+        var result = confirm("Apakah Anda yakin ingin menghapus data ini?");
+        
+        if (!result) {
+            event.preventDefault();
+            alert("Penghapusan data dibatalkan.");
+        }
+    }
+</script>
+
 
     <!-- Bootstrap core JavaScript-->
     <script src="{{url('vendor/jquery/jquery.min.js')}}"></script>
